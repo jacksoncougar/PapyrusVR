@@ -16,17 +16,17 @@
     <ProjectGuid>{9D903497-BB27-4C98-801C-E70FDF7E41FA}</ProjectGuid>
     <RootNamespace>PapyrusVRModule</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -55,7 +55,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\..;$(SolutionDir)\..\..;$(SolutionDir)\..\openvr;$(SolutionDir)\..\skse;;$(SolutionDir)\..\skse\sksevr;$(SolutionDir)\..\skse\sksevr\skse64;$(SolutionDir)\..\..\openvr;$(SolutionDir)\..\..\skse;$(SolutionDir)\..\..\skse\sksevr;$(SolutionDir)\..\..\skse\sksevr\skse64;$(SolutionDir)\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Windows Kits\8.1\Include\um;$(SolutionDir);$(SolutionDir)\..;$(SolutionDir)\..\..;C:\Users\seed\Documents\GitHub\openvr\headers;$(SolutionDir)\..\openvr;C:\Users\seed\Downloads\sksevr_2_00_08\src;C:\Users\seed\Downloads\sksevr_2_00_08\src\sksevr;;$(SolutionDir)\..\skse\sksevr;$(SolutionDir)\..\skse\sksevr\skse64;$(SolutionDir)\..\..\openvr;$(SolutionDir)\..\..\skse;$(SolutionDir)\..\..\skse\sksevr;$(SolutionDir)\..\..\skse\sksevr\skse64;$(SolutionDir)\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PLUGIN_EXAMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -69,7 +69,7 @@
       <ModuleDefinitionFile>exports.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>shlwapi.lib;libs/*.lib;libs/Debug/*.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;libs/*.lib;libs/Debug/*.lib;%(AdditionalDependencies);shell32.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -90,7 +90,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)\..;$(SolutionDir)\..\..;$(SolutionDir)\..\openvr;$(SolutionDir)\..\skse;$(SolutionDir)\..\skse\sksevr;$(SolutionDir)\..\skse\sksevr\skse64;$(SolutionDir)\..\..\openvr;$(SolutionDir)\..\..\skse;$(SolutionDir)\..\..\skse\sksevr;$(SolutionDir)\..\..\skse\sksevr\skse64;$(SolutionDir)\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Windows Kits\8.1\Include\um;$(SolutionDir);$(SolutionDir)\..;$(SolutionDir)\..\..;C:\Users\seed\Documents\GitHub\openvr\headers;$(SolutionDir)\..\openvr;C:\Users\seed\Downloads\sksevr_2_00_08\src;C:\Users\seed\Downloads\sksevr_2_00_08\src\sksevr;$(SolutionDir)\..\skse\sksevr;$(SolutionDir)\..\skse\sksevr\skse64;$(SolutionDir)\..\..\openvr;$(SolutionDir)\..\..\skse;$(SolutionDir)\..\..\skse\sksevr;$(SolutionDir)\..\..\skse\sksevr\skse64;$(SolutionDir)\jsoncpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLUGIN_EXAMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -106,7 +106,7 @@
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalDependencies>shlwapi.lib;libs/*.lib;libs/Release/*.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;libs/*.lib;libs/Release/*.lib;%(AdditionalDependencies);shell32.lib</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -143,6 +143,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="libs\common_vc14.lib" />
+    <Library Include="libs\skse64_common.lib" />
+    <Library Include="libs\sksevr_1_3_64.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

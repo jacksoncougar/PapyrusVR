@@ -1,7 +1,7 @@
-#include "skse64/PluginAPI.h"		// super
+#include "skse64/PluginAPI.h"		    // super
 #include "skse64_common/skse_version.h"	// What version of SKSE is running?
 #include "common/IDebugLog.h"
-#include <shlobj.h>				// CSIDL_MYCODUMENTS
+#include <shlobj.h>				        // CSIDL_MYCODUMENTS
 
 #include "PapyrusVR.h"
 #include "VRManager.h"

@@ -76,4 +76,9 @@
       <Filter>API Headers\Collisions</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="libs\common_vc14.lib" />
+    <Library Include="libs\skse64_common.lib" />
+    <Library Include="libs\sksevr_1_3_64.lib" />
+  </ItemGroup>
 </Project>
