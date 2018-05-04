@@ -29,7 +29,13 @@ namespace PapyrusVR
 	{
 		if (_compositor)
 		{
-			vr::VRCompositorError error = _compositor->GetLastPoses((vr::TrackedDevicePose_t*)_renderPoses, vr::k_unMaxTrackedDeviceCount, (vr::TrackedDevicePose_t*)_gamePoses, vr::k_unMaxTrackedDeviceCount);
+			vr::VRCompositorError error = _compositor->GetLastPoses(
+                (vr::TrackedDevicePose_t*)_renderPoses, 
+                vr::k_unMaxTrackedDeviceCount, 
+                (vr::TrackedDevicePose_t*)_gamePoses, 
+                vr::k_unMaxTrackedDeviceCount
+            );
+
 			if (error && error != vr::EVRCompositorError::VRCompositorError_None)
 				_MESSAGE("Error while retriving game poses!");
 
@@ -206,7 +212,9 @@ namespace PapyrusVR
 
 		if (!transform)
 			return 0;
+
 		Sphere* overlapSphere = new Sphere(radius);
+
 		_MESSAGE("Radius %f", radius);
 		_MESSAGE("Transform size %d", sizeof(*transform));
 		_MESSAGE("Attached to deviceID %d", attachedDevice);

@@ -222,6 +222,7 @@ namespace PapyrusVR
 		clock_t lastFrame = clock();
 		clock_t thisFrame;
 		double deltaTime = 0.0f;
+
 		void OnVRUpdate()
 		{
 			//Calculate deltaTime
@@ -401,7 +402,6 @@ namespace PapyrusVR
 
 		_MESSAGE("Registering for VR Button Events");
 		VRManager::GetInstance().RegisterVRButtonListener(PapyrusVR::OnVRButtonEventRecived);
-
 
 		_MESSAGE("Registering for VR Overlap Events");
 		VRManager::GetInstance().RegisterVROverlapListener(PapyrusVR::OnVROverlapEventRecived);
