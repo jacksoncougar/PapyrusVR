@@ -124,7 +124,8 @@ namespace PapyrusVR
 		VRDevice_Unknown = -1,
 		VRDevice_HMD = 0,
 		VRDevice_RightController = 1,
-		VRDevice_LeftController = 2
+		VRDevice_LeftController = 2,
+        VRDevice_Max
 	};
 
 	enum VREvent

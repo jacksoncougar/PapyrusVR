@@ -59,7 +59,7 @@ namespace PapyrusVR
 			ProcessControllerEvents(VRDevice::VRDevice_RightController);
 
 			//Process Overlaps for every valid tracked object
-			for (int i = 0; i < VRDevice::VRDevice_LeftController + 1; i++)
+			for (int i = 0; i < VRDevice::VRDevice_Max; i++)
 				ProcessOverlapEvents((VRDevice)i);
 		}
 	}

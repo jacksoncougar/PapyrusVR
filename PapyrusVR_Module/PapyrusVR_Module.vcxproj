@@ -122,6 +122,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="api\collisions\Cube.cpp" />
     <ClCompile Include="api\collisions\LocalOverlapObject.cpp" />
     <ClCompile Include="api\collisions\Sphere.cpp" />
     <ClCompile Include="api\utils\OpenVRUtils.cpp" />
@@ -130,6 +131,7 @@
     <ClCompile Include="VRManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="api\collisions\Cube.h" />
     <ClInclude Include="api\collisions\IShape.h" />
     <ClInclude Include="api\collisions\LocalOverlapObject.h" />
     <ClInclude Include="api\collisions\Sphere.h" />

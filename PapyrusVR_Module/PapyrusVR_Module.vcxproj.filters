@@ -38,6 +38,9 @@
     <ClCompile Include="api\collisions\LocalOverlapObject.cpp">
       <Filter>API Headers\Collisions</Filter>
     </ClCompile>
+    <ClCompile Include="api\collisions\Cube.cpp">
+      <Filter>API Headers\Collisions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def">
@@ -73,6 +76,9 @@
       <Filter>API Headers\Collisions</Filter>
     </ClInclude>
     <ClInclude Include="api\collisions\LocalOverlapObject.h">
+      <Filter>API Headers\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="api\collisions\Cube.h">
       <Filter>API Headers\Collisions</Filter>
     </ClInclude>
   </ItemGroup>
