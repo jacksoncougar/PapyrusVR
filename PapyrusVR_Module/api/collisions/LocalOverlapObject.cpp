@@ -16,9 +16,11 @@ namespace PapyrusVR
 		return VROverlapEvent::VROverlapEvent_None;
 	}
 
-	VROverlapEvent LocalOverlapObject::CheckOverlapWithPose(VRDevice device, TrackedDevicePose* otherPose, bool selfCollisions)
+	VROverlapEvent LocalOverlapObject::CheckOverlapWithPose(
+        VRDevice device, TrackedDevicePose* otherPose, bool selfCollisions)
 	{
 		//Currently working only on spheres (need to account for quaternion rotation too)
+
 		if (otherPose && transform && (selfCollisions || !attachedDevicePose || otherPose != (*attachedDevicePose)))
 		{
 			// Local Rotate -> Local Translate -> World Rotate -> World Translate
@@ -34,9 +36,11 @@ namespace PapyrusVR
 			Vector3 distanceFromOrigin = devicePosition - attachedTransformedPosition;
 
 			//Compute event type and save state
+
 			bool overlapping = shape->CheckForOverlap(distanceFromOrigin);
 			VROverlapEvent returnEvent = ComputeOverlapEvent(_prevStates[device], overlapping);
 			_prevStates[device] = overlapping;
+
 			return returnEvent;
 		}
 

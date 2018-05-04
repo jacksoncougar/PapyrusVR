@@ -58,6 +58,13 @@ namespace PapyrusVR
 		return result;
 	};
 
+    inline float lengthSquared( Vector3 const& vector )
+    {
+        return vector.x * vector.x
+            + vector.y * vector.y
+            + vector.z * vector.z;
+    };
+
 	inline
 	Vector3& operator+(Vector3 const& lhs, Vector3 const& rhs)
 	{
