@@ -128,6 +128,13 @@ namespace PapyrusVR
         VRDevice_Max
 	};
 
+    enum VRPoseType
+    {
+        VRPoseType_Render = 0,
+        VRPoseType_Gameplay,
+        VRPoseType_Max
+    };
+
 	enum VREvent
 	{
 		VREvent_Negative = -1,
