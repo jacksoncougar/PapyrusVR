@@ -6,6 +6,7 @@
 namespace PapyrusVR
 {
 
+    // Shape attached to tracked VR device used for overlap testing.
 	class LocalOverlapObject
 	{
 	public:
@@ -20,9 +21,12 @@ namespace PapyrusVR
 	private:
 		IShape* shape;
 		TrackedDevicePose** attachedDevicePose;
+
 		bool _prevStates[k_unMaxTrackedDeviceCount];
+
+        // Tests for a change in the overlap state.
 		VROverlapEvent ComputeOverlapEvent(
-            bool previousState, bool currentState);
+            bool wasOverlapped, bool isOverlapping);
 
 	public:
 		Matrix34* transform;

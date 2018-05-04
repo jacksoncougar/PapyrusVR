@@ -4,12 +4,13 @@
 
 namespace PapyrusVR
 {
-	VROverlapEvent LocalOverlapObject::ComputeOverlapEvent(bool previousState, bool currentState)
+	VROverlapEvent LocalOverlapObject::ComputeOverlapEvent(
+        bool wasOverlapped, bool isOverlapping)
 	{
-		if(previousState && !currentState)
+		if(wasOverlapped && !isOverlapping)
 			return VROverlapEvent::VROverlapEvent_OnExit;
 
-		if(currentState && !previousState)
+		if(isOverlapping && !wasOverlapped)
 			return VROverlapEvent::VROverlapEvent_OnEnter;
 
 		return VROverlapEvent::VROverlapEvent_None;
@@ -29,7 +30,7 @@ namespace PapyrusVR
 			else
 				attachedTransformedPosition = localTransformedPosition;
 
-			Vector3 devicePosition = OpenVRUtils::GetPosition(&(otherPose->mDeviceToAbsoluteTracking));
+			Vector3 devicePosition = OpenVRUtils::GetPosition(&otherPose->mDeviceToAbsoluteTracking);
 			Vector3 distanceFromOrigin = devicePosition - attachedTransformedPosition;
 
 			//Compute event type and save state
