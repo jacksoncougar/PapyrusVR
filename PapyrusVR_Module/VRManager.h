@@ -80,23 +80,24 @@ namespace PapyrusVR
 		VRManager(VRManager const&) = delete;
 		void operator=(VRManager const&) = delete;
 		void Init();
-		void UpdatePoses();
+		void UpdatePoses() final;
 
-		bool IsInitialized();
+		bool IsInitialized() final;
 
 		//Events Register/Unregister
-		void RegisterVRButtonListener(OnVRButtonEvent listener) { GenericRegisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
-		void UnregisterVRButtonListener(OnVRButtonEvent listener) { GenericUnregisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
-		void RegisterVROverlapListener(OnVROverlapEvent listener) { GenericRegisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
-		void UnregisterVROverlapListener(OnVROverlapEvent listener) { GenericUnregisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
+		void RegisterVRButtonListener(OnVRButtonEvent listener) final { GenericRegisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
+		void UnregisterVRButtonListener(OnVRButtonEvent listener) final { GenericUnregisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
+		
+        void RegisterVROverlapListener(OnVROverlapEvent listener) final { GenericRegisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
+		void UnregisterVROverlapListener(OnVROverlapEvent listener) final { GenericUnregisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
 
 		//Overlap Engine Methods
-		UInt32 CreateLocalOverlapSphere(float radius, Matrix34* transform, VRDevice attachedDevice = VRDevice::VRDevice_Unknown);
-		void DestroyLocalOverlapObject(UInt32 overlapObjectHandle);
+		UInt32 CreateLocalOverlapSphere(float radius, Matrix34* transform, VRDevice attachedDevice = VRDevice::VRDevice_Unknown) final;
+		void DestroyLocalOverlapObject(UInt32 overlapObjectHandle) final;
 
-		TrackedDevicePose* GetHMDPose(bool renderPose = true);
-		TrackedDevicePose* GetRightHandPose(bool renderPose = true);
-		TrackedDevicePose* GetLeftHandPose(bool renderPose = true);
-		TrackedDevicePose* GetPoseByDeviceEnum(VRDevice device, bool renderPose = true);
+		TrackedDevicePose* GetHMDPose(bool renderPose = true) final;
+		TrackedDevicePose* GetRightHandPose(bool renderPose = true) final;
+		TrackedDevicePose* GetLeftHandPose(bool renderPose = true) final;
+		TrackedDevicePose* GetPoseByDeviceEnum(VRDevice device, bool renderPose = true) final;
 	};
 }
