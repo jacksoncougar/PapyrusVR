@@ -31,10 +31,10 @@ namespace PapyrusVR
         vr::IVRCompositor* _compositor;
         vr::IVRSystem* _vr;
 
-        TrackedDevicePose _renderPoses[vr::k_unMaxTrackedDeviceCount];              
-        TrackedDevicePose _gamePoses[vr::k_unMaxTrackedDeviceCount];                
+        TrackedDevicePose _renderPoses[k_unMaxTrackedDeviceCount];              
+        TrackedDevicePose _gamePoses[k_unMaxTrackedDeviceCount];                
 
-        vr::VRControllerState_t _controllerStates[vr::k_unMaxTrackedDeviceCount];   
+        vr::VRControllerState_t _controllerStates[k_unMaxTrackedDeviceCount];   
 
         std::mutex _vrLocalOverlapObjectMapMutex;
         std::mutex _vrButtonEventsListenersMutex;
