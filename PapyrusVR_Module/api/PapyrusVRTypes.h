@@ -9,6 +9,11 @@ namespace PapyrusVR
 		float z;
 
         static const Vector3 zero;
+
+        inline float lengthSquared(  )
+        {
+            return x * x + y * y + z * z;
+        };
 	} Vector3;
 
     const Vector3 Vector3::zero = { 0,0,0 };
@@ -58,12 +63,6 @@ namespace PapyrusVR
 		return result;
 	};
 
-    inline float lengthSquared( Vector3 const& vector )
-    {
-        return vector.x * vector.x
-            + vector.y * vector.y
-            + vector.z * vector.z;
-    };
 
 	inline
 	Vector3& operator+(Vector3 const& lhs, Vector3 const& rhs)
