@@ -130,8 +130,8 @@ namespace PapyrusVR
 
     enum VRPoseType
     {
-        VRPoseType_Render = 0,
-        VRPoseType_Gameplay,
+        VRPoseType_Gameplay = 0,
+        VRPoseType_Render,
         VRPoseType_Max
     };
 

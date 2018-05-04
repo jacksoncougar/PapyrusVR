@@ -66,8 +66,8 @@ namespace PapyrusVR
 
 	void VRManager::UpdateTrackedDevicesMapEntry(VRDevice device, uint32_t newIndex)
 	{
-		_orderedTrackedDevicesMap[false][device] = _gamePoses + newIndex;
-		_orderedTrackedDevicesMap[true][device] = _renderPoses + newIndex;
+		_orderedTrackedDevicesMap[VRPoseType::VRPoseType_Gameplay][device] = _gamePoses + newIndex;
+		_orderedTrackedDevicesMap[VRPoseType::VRPoseType_Render][device] = _renderPoses + newIndex;
 	}
 	
 	VREvent VRManager::CheckStatesForMask(UInt64 previousEvt, UInt64 newEvt, UInt64 mask)
@@ -106,10 +106,10 @@ namespace PapyrusVR
 		if (IsInitialized())
 		{
 			//If the device is mapped
-			if (_orderedTrackedDevicesMap[false][currentDevice])
+			if (_orderedTrackedDevicesMap[VRPoseType::VRPoseType_Gameplay][currentDevice])
 			{
 				//Ugly but handy, gets the device index from our ordered map
-				uint64_t controllerID = (_orderedTrackedDevicesMap[false][currentDevice]) - _gamePoses;
+				uint64_t controllerID = (_orderedTrackedDevicesMap[VRPoseType::VRPoseType_Gameplay][currentDevice]) - _gamePoses;
 
 				vr::VRControllerState_t newState;
 				VREvent eventResult;
@@ -214,7 +214,7 @@ namespace PapyrusVR
 
 		TrackedDevicePose** attachedTo = NULL;
 		if (attachedDevice != VRDevice_Unknown)
-			attachedTo = _orderedTrackedDevicesMap[false]+attachedDevice;
+			attachedTo = _orderedTrackedDevicesMap[VRPoseType::VRPoseType_Gameplay]+attachedDevice;
 
 		LocalOverlapObject* overlapObject = new LocalOverlapObject(overlapSphere, transform, attachedTo);
 
