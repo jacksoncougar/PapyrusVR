@@ -21,7 +21,7 @@ namespace PapyrusVR
 		if (otherPose && transform && (selfCollisions || !attachedDevicePose || otherPose != (*attachedDevicePose)))
 		{
 			// Local Rotate -> Local Translate -> World Rotate -> World Translate
-			Vector3 localTransformedPosition = (*transform) * Vector3();
+            Vector3 localTransformedPosition = OpenVRUtils::GetPosition( transform );
 			Vector3 attachedTransformedPosition;
 				
 			if (attachedDevicePose)
