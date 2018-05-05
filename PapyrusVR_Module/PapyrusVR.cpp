@@ -267,7 +267,7 @@ namespace PapyrusVR
 	#pragma region Messaging Interface
 
 		// Listens for SKSE events
-		void OnSKSEMessageRecived(SKSEMessagingInterface::Message* message)
+		void OnSKSEMessageRecieved(SKSEMessagingInterface::Message* message)
 		{
 			if (message)
 			{
@@ -298,7 +298,7 @@ namespace PapyrusVR
 			{
 				g_messagingInterface = messagingInterface;
 				_MESSAGE("Registering for plugin loaded message!");
-				g_messagingInterface->RegisterListener(*g_pluginHandle, "SKSE", OnSKSEMessageRecived);
+				g_messagingInterface->RegisterListener(*g_pluginHandle, "SKSE", OnSKSEMessageRecieved);
 			}
 		}
 
@@ -355,7 +355,7 @@ namespace PapyrusVR
 		}
 	#pragma endregion
 
-	void OnVRButtonEventRecived(VREventType eventType, EVRButtonId buttonId, VRDevice deviceId)
+	void OnVRButtonEventRecieved(VREventType eventType, EVRButtonId buttonId, VRDevice deviceId)
 	{
 		_MESSAGE("Dispatching eventType %d for button with ID: %d from device %d", eventType, buttonId, deviceId);
 		//Notify Papyrus scripts
@@ -365,7 +365,7 @@ namespace PapyrusVR
 			);
 	}
 
-	void OnVROverlapEventRecived(VROverlapEvent eventType, UInt32 objectHandle, VRDevice deviceId)
+	void OnVROverlapEventRecieved(VROverlapEvent eventType, UInt32 objectHandle, VRDevice deviceId)
 	{
 		_MESSAGE("Dispatching overlap %d for device with ID: %d from handle %d", eventType, deviceId, objectHandle);
 		//Notify Papyrus scripts
@@ -379,24 +379,39 @@ namespace PapyrusVR
 	bool RegisterFuncs(VMClassRegistry* registry) 
 	{
 		_MESSAGE("Registering native functions...");
-		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>("GetSteamVRDeviceRotation_Native", "PapyrusVR", PapyrusVR::GetSteamVRDeviceRotation, registry));
-		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>("GetSteamVRDeviceQRotation_Native", "PapyrusVR", PapyrusVR::GetSteamVRDeviceQRotation, registry));
-		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>("GetSteamVRDevicePosition_Native", "PapyrusVR", PapyrusVR::GetSteamVRDevicePosition, registry));
-		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>("GetSkyrimDeviceRotation_Native", "PapyrusVR", PapyrusVR::GetSkyrimDeviceRotation, registry));
-		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>("GetSkyrimDeviceQRotation_Native", "PapyrusVR", PapyrusVR::GetSkyrimDeviceQRotation, registry));
-		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>("GetSkyrimDevicePosition_Native", "PapyrusVR", PapyrusVR::GetSkyrimDevicePosition, registry));
+		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>
+            ("GetSteamVRDeviceRotation_Native", "PapyrusVR", PapyrusVR::GetSteamVRDeviceRotation, registry));
+		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>
+            ("GetSteamVRDeviceQRotation_Native", "PapyrusVR", PapyrusVR::GetSteamVRDeviceQRotation, registry));
+		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>
+            ("GetSteamVRDevicePosition_Native", "PapyrusVR", PapyrusVR::GetSteamVRDevicePosition, registry));
+		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>
+            ("GetSkyrimDeviceRotation_Native", "PapyrusVR", PapyrusVR::GetSkyrimDeviceRotation, registry));
+		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>
+            ("GetSkyrimDeviceQRotation_Native", "PapyrusVR", PapyrusVR::GetSkyrimDeviceQRotation, registry));
+		registry->RegisterFunction(new NativeFunction2 <StaticFunctionTag, void, SInt32, VMArray<float>>
+            ("GetSkyrimDevicePosition_Native", "PapyrusVR", PapyrusVR::GetSkyrimDevicePosition, registry));
 
-		registry->RegisterFunction(new NativeFunction4 <StaticFunctionTag, UInt32, float, VMArray<float>, VMArray<float>, SInt32>("RegisterLocalOverlapSphere", "PapyrusVR", PapyrusVR::RegisterLocalOverlapSphere, registry));
-		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, UInt32>("DestroyLocalOverlapObject", "PapyrusVR", PapyrusVR::DestroyLocalOverlapObject, registry));
+		registry->RegisterFunction(new NativeFunction4 <StaticFunctionTag, UInt32, float, VMArray<float>, VMArray<float>, SInt32>
+            ("RegisterLocalOverlapSphere", "PapyrusVR", PapyrusVR::RegisterLocalOverlapSphere, registry));
+		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, UInt32>
+            ("DestroyLocalOverlapObject", "PapyrusVR", PapyrusVR::DestroyLocalOverlapObject, registry));
 
-		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>("RegisterForPoseUpdates", "PapyrusVR", PapyrusVR::RegisterForPoseUpdates, registry));
-		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>("UnregisterForPoseUpdates", "PapyrusVR", PapyrusVR::UnregisterForPoseUpdates, registry));
-		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>("RegisterForVRButtonEvents", "PapyrusVR", PapyrusVR::RegisterForVRButtonEvents, registry));
-		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>("UnregisterForVRButtonEvents", "PapyrusVR", PapyrusVR::UnregisterForVRButtonEvents, registry));
-		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>("RegisterForVROverlapEvents", "PapyrusVR", PapyrusVR::RegisterForVROverlapEvents, registry));
-		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>("UnregisterForVROverlapEvents", "PapyrusVR", PapyrusVR::UnregisterForVROverlapEvents, registry));
+		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>
+            ("RegisterForPoseUpdates", "PapyrusVR", PapyrusVR::RegisterForPoseUpdates, registry));
+		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>
+            ("UnregisterForPoseUpdates", "PapyrusVR", PapyrusVR::UnregisterForPoseUpdates, registry));
+		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>
+            ("RegisterForVRButtonEvents", "PapyrusVR", PapyrusVR::RegisterForVRButtonEvents, registry));
+		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>
+            ("UnregisterForVRButtonEvents", "PapyrusVR", PapyrusVR::UnregisterForVRButtonEvents, registry));
+		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>
+            ("RegisterForVROverlapEvents", "PapyrusVR", PapyrusVR::RegisterForVROverlapEvents, registry));
+		registry->RegisterFunction(new NativeFunction1 <StaticFunctionTag, void, TESForm*>
+            ("UnregisterForVROverlapEvents", "PapyrusVR", PapyrusVR::UnregisterForVROverlapEvents, registry));
 
-		registry->RegisterFunction(new NativeFunction0 <StaticFunctionTag, void>("TimeSinceLastCall", "PapyrusVR", PapyrusVR::TimeSinceLastCall, registry)); //Debug function
+		registry->RegisterFunction(new NativeFunction0 <StaticFunctionTag, void>(
+            "TimeSinceLastCall", "PapyrusVR", PapyrusVR::TimeSinceLastCall, registry)); //Debug function
 
 		_MESSAGE("Creating trampoline");
 		if (!l_LocalBranchTrampoline.Create(1024 * 64))
@@ -406,10 +421,10 @@ namespace PapyrusVR
 		}
 
 		_MESSAGE("Registering for VR Button Events");
-		VRManager::GetInstance().RegisterVRButtonListener(PapyrusVR::OnVRButtonEventRecived);
+		VRManager::GetInstance().RegisterVRButtonListener(PapyrusVR::OnVRButtonEventRecieved);
 
 		_MESSAGE("Registering for VR Overlap Events");
-		VRManager::GetInstance().RegisterVROverlapListener(PapyrusVR::OnVROverlapEventRecived);
+		VRManager::GetInstance().RegisterVROverlapListener(PapyrusVR::OnVROverlapEventRecieved);
 
 		_MESSAGE("Hooking into OpenVR calls");
 		l_LocalBranchTrampoline.Write5Call(OpenVR_Call, GetFnAddr(&PapyrusVR::OnVRUpdate));

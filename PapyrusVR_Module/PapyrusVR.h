@@ -118,8 +118,8 @@ namespace PapyrusVR
 
 	bool RegisterFuncs(VMClassRegistry* registry);
 
-	void OnVRButtonEventRecived(VREventType eventType, EVRButtonId buttonId, VRDevice deviceId);
-	void OnVROverlapEventRecived(VROverlapEvent eventType, UInt32 objectHandle, VRDevice deviceId);
+	void OnVRButtonEventRecieved(VREventType eventType, EVRButtonId buttonId, VRDevice deviceId);
+	void OnVROverlapEventRecieved(VROverlapEvent eventType, UInt32 objectHandle, VRDevice deviceId);
 
 	void OnVRUpdate(); //Called once every pose update by the rendering thread
 
@@ -137,7 +137,7 @@ namespace PapyrusVR
 	#pragma endregion
 	
 	#pragma region Messaging Interface
-	void OnSKSEMessageRecived(SKSEMessagingInterface::Message* message);
+	void OnSKSEMessageRecieved(SKSEMessagingInterface::Message* message);
 	void RegisterMessagingInterface(SKSEMessagingInterface* messagingInterface);
 	void RegisterHandle(PluginHandle* handle);
 	#pragma endregion

@@ -85,11 +85,15 @@ namespace PapyrusVR
 		bool IsInitialized() final;
 
 		//Events Register/Unregister
-		void RegisterVRButtonListener(OnVRButtonEvent listener) final { GenericRegisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
-		void UnregisterVRButtonListener(OnVRButtonEvent listener) final { GenericUnregisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
+		void RegisterVRButtonListener(OnVRButtonEvent listener) final 
+        { GenericRegisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
+		void UnregisterVRButtonListener(OnVRButtonEvent listener) final 
+        { GenericUnregisterForEvent(listener, &_vrButtonEventsListeners, &_vrButtonEventsListenersMutex); }
 		
-        void RegisterVROverlapListener(OnVROverlapEvent listener) final { GenericRegisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
-		void UnregisterVROverlapListener(OnVROverlapEvent listener) final { GenericUnregisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
+        void RegisterVROverlapListener(OnVROverlapEvent listener) final 
+        { GenericRegisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
+		void UnregisterVROverlapListener(OnVROverlapEvent listener) final 
+        { GenericUnregisterForEvent(listener, &_vrOverlapEventsListeners, &_vrOverlapEventsListenersMutex); }
 
 		//Overlap Engine Methods
 		UInt32 CreateLocalOverlapSphere(float radius, Matrix34* transform, VRDevice attachedDevice = VRDevice::VRDevice_Unknown) final;
