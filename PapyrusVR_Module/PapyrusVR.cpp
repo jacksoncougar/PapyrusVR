@@ -1,7 +1,9 @@
 #include "PapyrusVR.h"
+#include <chrono>
 
 namespace PapyrusVR 
 {
+
 	//OpenVR Hook
 	RelocAddr <uintptr_t>	OpenVR_Call(0xC50C69);
 	BranchTrampoline		l_LocalBranchTrampoline;
@@ -218,16 +220,21 @@ namespace PapyrusVR
 
 	#pragma region OpenVR Hooks
 
-		//SkyrimVR+0xC50C69
-		clock_t lastFrame = clock();
-		clock_t thisFrame;
-		double deltaTime = 0.0f;
+        //SkyrimVR+0xC50C69
+
+        using dseconds = std::chrono::duration<double>;
+        using namespace std::chrono_literals;
+
+        auto lastFrame = std::chrono::steady_clock::now( );
+        auto thisFrame = lastFrame;
+
+        dseconds deltaTime = 0s;
 
 		void OnVRUpdate()
 		{
 			//Calculate deltaTime
-			thisFrame = clock();
-			deltaTime = double(thisFrame - lastFrame) / CLOCKS_PER_SEC;
+			thisFrame = std::chrono::steady_clock::now( );
+            deltaTime = thisFrame - lastFrame;
 			lastFrame = thisFrame;
 
 			//Update Poses
@@ -236,7 +243,7 @@ namespace PapyrusVR
 			//Notify Listeners
 			listenersMutex.lock();
 			for (OnPoseUpdateCallback& callback : g_poseUpdateListeners)
-				callback(deltaTime);
+				callback(deltaTime.count);
 			listenersMutex.unlock();
 
 			//Notify Papyrus scripts
