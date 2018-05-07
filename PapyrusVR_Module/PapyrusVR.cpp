@@ -222,13 +222,13 @@ namespace PapyrusVR
 
         //SkyrimVR+0xC50C69
 
-        using dseconds = std::chrono::duration<double>;
+        using seconds = std::chrono::duration<double>;
         using namespace std::chrono_literals;
 
         auto lastFrame = std::chrono::steady_clock::now( );
         auto thisFrame = lastFrame;
 
-        dseconds deltaTime = 0s;
+        seconds deltaTime = 0s;
 
 		void OnVRUpdate()
 		{
