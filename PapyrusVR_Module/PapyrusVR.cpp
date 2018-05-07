@@ -237,7 +237,7 @@ namespace PapyrusVR
             {
                 std::lock_guard<std::mutex> lock( listenersMutex );
                 for ( OnPoseUpdateCallback& callback : g_poseUpdateListeners )
-                    callback( deltaTime.count );
+                    callback( deltaTime );
             }
 
 			//Notify Papyrus scripts
@@ -253,9 +253,8 @@ namespace PapyrusVR
 	#pragma region API
 		void RegisterPoseUpdateListener(OnPoseUpdateCallback callback)
 		{
-			listenersMutex.lock();
+            std::lock_guard<std::mutex> lock( listenersMutex );
 			g_poseUpdateListeners.push_back(callback);
-			listenersMutex.unlock();
 		}
 
 		//Returns the VRManager singleton instance
