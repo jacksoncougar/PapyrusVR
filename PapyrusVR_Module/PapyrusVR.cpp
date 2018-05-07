@@ -28,6 +28,7 @@ namespace PapyrusVR
 	PapyrusVRAPI apiMessage;
 
 	#pragma region Papyrus Events
+
 		class EventQueueFunctor0 : public IFunctionArguments
 		{
 		public:
@@ -46,12 +47,16 @@ namespace PapyrusVR
 			BSFixedString	eventName;
 		};
 
-		template <typename T> void SetVMValue(VMValue * val, T arg)
+		template <typename T> 
+        void SetVMValue(VMValue * val, T arg)
 		{
 			VMClassRegistry * registry = (*g_skyrimVM)->GetClassRegistry();
 			PackValue(val, &arg, registry);
 		}
-		template <> void SetVMValue<SInt32>(VMValue * val, SInt32 arg) { val->SetInt(arg); }
+
+		template <> 
+        void SetVMValue<SInt32>(VMValue * val, SInt32 arg) { val->SetInt(arg); }
+
 		class EventFunctor3 : public IFunctionArguments
 		{
 		public:
@@ -79,10 +84,12 @@ namespace PapyrusVR
 			SInt32				param3;
 			BSFixedString		eventName;
 		};
+
 	#pragma endregion
 
 	#pragma region Papyrus Native Functions
 		#pragma region SteamVR Coordinates
+
 			void GetSteamVRDeviceRotation(StaticFunctionTag *base, SInt32 deviceEnum, VMArray<float> returnValues)
 			{
 				_MESSAGE("GetSteamVRDeviceRotation");
@@ -101,9 +108,11 @@ namespace PapyrusVR
 				CopyPoseToVMArray(deviceEnum, &returnValues, PoseParam::Position);
 
 			}
+
 		#pragma endregion
 
 		#pragma region Skyrim Coordinates
+
 			void GetSkyrimDeviceRotation(StaticFunctionTag *base, SInt32 deviceEnum, VMArray<float> returnValues)
 			{
 				_MESSAGE("GetSkyrimDeviceRotation");
@@ -121,9 +130,11 @@ namespace PapyrusVR
 				_MESSAGE("GetSkyrimDevicePosition");
 				CopyPoseToVMArray(deviceEnum, &returnValues, PoseParam::Position, true);
 			}
+
 		#pragma endregion
 
 		#pragma region Events Management
+
 			void FormRegisterForEvent(TESForm* object, RegistrationSetHolder<TESForm*>* regHolder)
 			{
 				GenericRegisterForEvent(object, regHolder);
@@ -204,6 +215,7 @@ namespace PapyrusVR
 			{
 				GetVRManager()->DestroyLocalOverlapObject(objectHandle);
 			}
+
 		#pragma endregion
 
 		//Used for debugging
@@ -223,19 +235,36 @@ namespace PapyrusVR
         //SkyrimVR+0xC50C69
 
         using seconds = std::chrono::duration<double>;
-        using namespace std::chrono_literals;
+        
+        class time_delta
+        {
+            std::chrono::steady_clock::time_point current;
+            std::chrono::steady_clock::time_point previous;
 
-        auto lastFrame = std::chrono::steady_clock::now( );
-        auto thisFrame = lastFrame;
-
-        seconds deltaTime = 0s;
+        public:
+            time_delta( ) :
+                current( std::chrono::steady_clock::now( ) ), 
+                previous( current )
+            {
+            }
+            
+            /// <summary>
+            /// Returns the number of seconds elapsed since initialization or last call.
+            /// </summary>
+            /// <returns>The number of seconds elapsed.</returns>
+            inline seconds now( )
+            {
+                current = std::chrono::steady_clock::now( );
+                seconds delta = current - previous;
+                previous = current;
+            }
+        };
+            
+        time_delta delta;
 
 		void OnVRUpdate()
 		{
-			//Calculate deltaTime
-			thisFrame = std::chrono::steady_clock::now( );
-            deltaTime = thisFrame - lastFrame;
-			lastFrame = thisFrame;
+            seconds deltaTime = delta.now( );
 
 			//Update Poses
 			VRManager::GetInstance().UpdatePoses();
