@@ -3,6 +3,31 @@
 
 namespace PapyrusVR 
 {
+    using seconds = std::chrono::duration<double>;
+
+    class time_delta
+    {
+        std::chrono::steady_clock::time_point current;
+        std::chrono::steady_clock::time_point previous;
+
+    public:
+        time_delta( ) :
+            current( std::chrono::steady_clock::now( ) ),
+            previous( current )
+        {
+        }
+
+        /// <summary>
+        /// Returns the number of seconds elapsed since initialization or last call.
+        /// </summary>
+        /// <returns>The number of seconds elapsed.</returns>
+        inline seconds now( )
+        {
+            current = std::chrono::steady_clock::now( );
+            seconds delta = current - previous;
+            previous = current;
+        }
+    };
 
 	//OpenVR Hook
 	RelocAddr <uintptr_t>	OpenVR_Call(0xC50C69);
@@ -219,13 +244,12 @@ namespace PapyrusVR
 		#pragma endregion
 
 		//Used for debugging
-		std::clock_t start = clock();
+        time_delta time_since_last_call;
+
 		void TimeSinceLastCall(StaticFunctionTag* base)
 		{
-			clock_t end = clock();
-			double elapsed_seconds = double(end - start) / CLOCKS_PER_SEC;
-			_MESSAGE("90 events fired after %f seconds", elapsed_seconds);
-			start = end;
+            seconds elapsed_seconds = time_since_last_call.now( );
+			_MESSAGE("90 events fired after %f seconds", elapsed_seconds.count);
 		}
 
 	#pragma endregion
@@ -233,32 +257,6 @@ namespace PapyrusVR
 	#pragma region OpenVR Hooks
 
         //SkyrimVR+0xC50C69
-
-        using seconds = std::chrono::duration<double>;
-        
-        class time_delta
-        {
-            std::chrono::steady_clock::time_point current;
-            std::chrono::steady_clock::time_point previous;
-
-        public:
-            time_delta( ) :
-                current( std::chrono::steady_clock::now( ) ), 
-                previous( current )
-            {
-            }
-            
-            /// <summary>
-            /// Returns the number of seconds elapsed since initialization or last call.
-            /// </summary>
-            /// <returns>The number of seconds elapsed.</returns>
-            inline seconds now( )
-            {
-                current = std::chrono::steady_clock::now( );
-                seconds delta = current - previous;
-                previous = current;
-            }
-        };
             
         time_delta delta;
 
